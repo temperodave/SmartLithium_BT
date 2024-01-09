@@ -70,7 +70,7 @@ def decrypt_aes_128_ctr_little_endian(
             with cipher_context() as ctx:
                 plaintext = create_string_buffer(16)
                 plaintext_len = c_int()
-                print('Decryptor key ',key.hex(), ' IV ',(j + 1 + init_val).to_bytes(16, byteorder='little').hex())
+#                print('Decryptor key ',key.hex(), ' IV ',(j + 1 + init_val).to_bytes(16, byteorder='little').hex())
                 libcrypto.EVP_DecryptInit_ex(ctx, libcrypto.EVP_aes_128_ctr(), None, key, (j + 1 + init_val).to_bytes(16, byteorder='little'))
                 libcrypto.EVP_DecryptUpdate(ctx, plaintext, byref(plaintext_len), chunk, len(chunk))
                 yield plaintext.raw[:plaintext_len.value]

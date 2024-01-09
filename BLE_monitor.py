@@ -152,15 +152,16 @@ def new_device_hndlr(proxy: BluezObjectManager,
         length = len(ManufacturerData_hex)
         encrypted_hex=ManufacturerData_hex[16:length]
         encrypted=bytes.fromhex(ManufacturerData_hex[16:length])
-        print(f'Device with address {address} found. ManufacturerData in hex is:', ManufacturerData_hex, ' Encrypted_hex ',encrypted_hex)
+#        print(f'Device with address {address} found. ManufacturerData in hex is:', ManufacturerData_hex)
         akey = bytes.fromhex(encryption_keys[address])
         # NOTE!!! IV bytes are flipped from the broadcast string and then the counter is decremented by 1 as the decrypt function increments before use
         iv = int(ManufacturerData_hex[12:14] + ManufacturerData_hex[10:12],16) - 1
 #        print('  Raw IV is ', hex(iv), ' integer version is ', iv, ' ByteSwapped version is ', ManufacturerData_hex[12:14] + ManufacturerData_hex[10:12])
-        print(f'      Encrypted Data is {encrypted.hex()} and key is {encryption_keys[address]} and iv is {iv}') 
+#        print(f'      Encrypted Data is {encrypted.hex()} and key is {encryption_keys[address]} and iv is {iv}') 
         ciphertext_chunks = [encrypted]
         for plaintext in decrypt_aes_128_ctr_little_endian(akey,iv, ciphertext_chunks):
-            print('.     Decrypted text in hex: ', codecs.encode(plaintext,"hex"))
+        print(f'{address},', ManufacturerData_hex,',',codecs.encode(plaintext,"hex"))
+#            print('.     Decrypted text in hex: ', codecs.encode(plaintext,"hex"))
 #    else:
 #        print(f'Device with address {address} not in the list of known keys')
     adapter.RemoveDevice('(o)', object_path)
