@@ -160,7 +160,7 @@ def new_device_hndlr(proxy: BluezObjectManager,
 #        print(f'      Encrypted Data is {encrypted.hex()} and key is {encryption_keys[address]} and iv is {iv}') 
         ciphertext_chunks = [encrypted]
         for plaintext in decrypt_aes_128_ctr_little_endian(akey,iv, ciphertext_chunks):
-        print(f'{address},', ManufacturerData_hex,',',codecs.encode(plaintext,"hex"))
+             print(f'{address},', ManufacturerData_hex,',',codecs.encode(plaintext,"hex"))
 #            print('.     Decrypted text in hex: ', codecs.encode(plaintext,"hex"))
 #    else:
 #        print(f'Device with address {address} not in the list of known keys')
