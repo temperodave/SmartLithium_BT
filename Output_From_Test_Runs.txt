@@ -1,0 +1,108 @@
+Airstream checking on the 
+
+root@einstein:/data/SmartLithium_BT# python3 BLE_monitor.py 
+['UUIDs', 'RSSI', 'Pathloss', 'Transport', 'DuplicateData', 'Discoverable', 'Pattern']
+Starting BLE monitoring
+D1:A2:51:17:6E:B9, 100364270c42401473ebf678bd5960a8cc68a55064 , b'ff0000001785fffffbff1fb1ff'
+F9:D3:0B:95:3A:BD, 100289a30209880f95b9f79a70f7049d0fc55c669ceb2a , b'b800140500000000e78cfe4f0070fb'
+D1:A2:51:17:6E:B9, 100364270c494014c4582b5dd0bd464ee3b5fab473 , b'ff0000001785fffffbff1fb1ff'
+F9:D3:0B:95:3A:BD, 100289a30211880fd471c0b90434f172ecbc14cc6fa693 , b'b7001405000000002f8dfe500070fb'
+D1:A2:51:17:6E:B9, 100364270c4a401435c4bb2e5b3a965dece539581f , b'ff0000001785fffffbff1fb1ff'
+F9:D3:0B:95:3A:BD, 100289a30211880fd471c0b90434f172ecbc14cc6fa693 , b'b7001405000000002f8dfe500070fb'
+F9:D3:0B:95:3A:BD, 100289a30211880fd471c0b90434f172ecbc14cc6fa693 , b'b7001405000000002f8dfe500070fb'
+D1:A2:51:17:6E:B9, 100364270c4a401435c4bb2e5b3a965dece539581f , b'ff0000001785fffffbff1fb1ff'
+F9:D3:0B:95:3A:BD, 100289a30211880fd471c0b90434f172ecbc14cc6fa693 , b'b7001405000000002f8dfe500070fb'
+F9:D3:0B:95:3A:BD, 100289a30212880fbdbc180af88c64f80ad78b367a3d4a , b'b700140500000000ef8dfe500070fb'
+F9:D3:0B:95:3A:BD, 100289a30212880fbdbc180af88c64f80ad78b367a3d4a , b'b700140500000000ef8dfe500070fb'
+F9:D3:0B:95:3A:BD, 100289a30212880fbdbc180af88c64f80ad78b367a3d4a , b'b700140500000000ef8dfe500070fb'
+F9:D3:0B:95:3A:BD, 100289a30212880fbdbc180af88c64f80ad78b367a3d4a , b'b700140500000000ef8dfe500070fb'
+D1:A2:51:17:6E:B9, 100364270c524014b3306e2b3de0b31f14887d790e , b'ff0000001785fffffbff1fb1ff'
+F9:D3:0B:95:3A:BD, 100289a30219880f45f933d83493b1f021d51b5feb0d72 , b'b700140500000000f78ffe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021a880f58bb2ffb9bbbf60634c7c8a198b6bf , b'b700140500000000878efe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021a880f58bb2ffb9bbbf60634c7c8a198b6bf , b'b700140500000000878efe500060fb'
+D1:A2:51:17:6E:B9, 100364270c53401485de154edb3f02b1cf34dc2e6d , b'ff0000001785fffffbff1fb1ff'
+F9:D3:0B:95:3A:BD, 100289a3021a880f58bb2ffb9bbbf60634c7c8a198b6bf , b'b700140500000000878efe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021b880f2a801988540676f78d3963b874851a , b'b7001405000000001f8ffe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021b880f2a801988540676f78d3963b874851a , b'b7001405000000001f8ffe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021b880f2a801988540676f78d3963b874851a , b'b7001405000000001f8ffe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021b880f2a801988540676f78d3963b874851a , b'b7001405000000001f8ffe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021b880f2a801988540676f78d3963b874851a , b'b7001405000000001f8ffe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021c880fb46333127492d8a7bfa63b02daf529 , b'b7001405000000001f8efe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021c880fb46333127492d8a7bfa63b02daf529 , b'b7001405000000001f8efe500060fb'
+F9:D3:0B:95:3A:BD, 100289a3021c880fb46333127492d8a7bfa63b02daf529 , b'b7001405000000001f8efe500060fb'
+
+
+tempero@MacBook-Pro victron-ble % victron-ble -v read "1c085f9c-cabe-953f-d36e-037e9135a1d5@0fc8d1b686829cbd0e0a916d625a0c20"
+INFO:victron_ble.scanner:DLT Reading data for ['1c085f9c-cabe-953f-d36e-037e9135a1d5']
+DEBUG:victron_ble.scanner:Received data from 1c085f9c-cabe-953f-d36e-037e9135a1d5: 100289a30212880fbdbc180af88c64f80ad78b367a3d4a
+DEBUG:victron_ble.scanner:Decrypted data b'\xb7\x00\x14\x05\x00\x00\x00\x00\xef\x8d\xfeP\x00p\xfb\xb1'Parsed data <victron_ble.devices.battery_monitor.BatteryMonitorData object at 0x1062e31c0>
+Decrypted data  b'b700140500000000ef8dfe500070fbb1'
+{
+  "name": "SmartShunt HQ2120DJDNX",
+  "address": "1C085F9C-CABE-953F-D36E-037E9135A1D5",
+  "rssi": -59,
+  "payload": {
+    "aux_mode": "disabled",
+    "consumed_ah": 8.0,
+    "current": -23.685,
+    "model_name": "SmartShunt 500A/50mV",
+    "remaining_mins": 183,
+    "soc": 95.1,
+    "voltage": 13.0
+  }
+}
+DEBUG:victron_ble.scanner:Received data from 800fc26d-fc7a-46ad-203a-bb8944ddfa31: 100364270c4d401409343663e950c2d56b9a942698
+DEBUG:victron_ble.scanner:Received data from 1c085f9c-cabe-953f-d36e-037e9135a1d5: 100289a30215880f71138063eff9c20ae8d5c683af2c47
+DEBUG:victron_ble.scanner:Decrypted data b'\xb7\x00\x14\x05\x00\x00\x00\x00s\x8d\xfeP\x00`\xfbC'Parsed data <victron_ble.devices.battery_monitor.BatteryMonitorData object at 0x1062ec5e0>
+Decrypted data  b'b700140500000000738dfe500060fb43'
+{
+  "name": "SmartShunt HQ2120DJDNX",
+  "address": "1C085F9C-CABE-953F-D36E-037E9135A1D5",
+  "rssi": -56,
+  "payload": {
+    "aux_mode": "disabled",
+    "consumed_ah": 8.0,
+    "current": -23.716,
+    "model_name": "SmartShunt 500A/50mV",
+    "remaining_mins": 183,
+    "soc": 95.0,
+    "voltage": 13.0
+  }
+}
+DEBUG:victron_ble.scanner:Received data from 800fc26d-fc7a-46ad-203a-bb8944ddfa31: 100364270c50401469ea9b91f2ebf4fe603ddbcb27
+DEBUG:victron_ble.scanner:Received data from 1c085f9c-cabe-953f-d36e-037e9135a1d5: 100289a30218880f5a4fc84559e3eaf887f989fa7d0473
+DEBUG:victron_ble.scanner:Decrypted data b'\xb7\x00\x14\x05\x00\x00\x00\x00k\x8f\xfeP\x00`\xfbE'Parsed data <victron_ble.devices.battery_monitor.BatteryMonitorData object at 0x1062ecd90>
+Decrypted data  b'b7001405000000006b8ffe500060fb45'
+{
+  "name": "SmartShunt HQ2120DJDNX",
+  "address": "1C085F9C-CABE-953F-D36E-037E9135A1D5",
+  "rssi": -64,
+  "payload": {
+    "aux_mode": "disabled",
+    "consumed_ah": 8.0,
+    "current": -23.59,
+    "model_name": "SmartShunt 500A/50mV",
+    "remaining_mins": 183,
+    "soc": 95.0,
+    "voltage": 13.0
+  }
+}
+DEBUG:victron_ble.scanner:Received data from 800fc26d-fc7a-46ad-203a-bb8944ddfa31: 100364270c53401485de154edb3f02b1cf34dc2e6d
+DEBUG:victron_ble.scanner:Received data from 800fc26d-fc7a-46ad-203a-bb8944ddfa31: 100364270c544014bc5ee7a8da3e9a45adc7c65b9c
+DEBUG:victron_ble.scanner:Received data from 1c085f9c-cabe-953f-d36e-037e9135a1d5: 100289a3021b880f2a801988540676f78d3963b874851a
+DEBUG:victron_ble.scanner:Decrypted data b'\xb7\x00\x14\x05\x00\x00\x00\x00\x1f\x8f\xfeP\x00`\xfbN'Parsed data <victron_ble.devices.battery_monitor.BatteryMonitorData object at 0x1062ef6a0>
+Decrypted data  b'b7001405000000001f8ffe500060fb4e'
+{
+  "name": "SmartShunt HQ2120DJDNX",
+  "address": "1C085F9C-CABE-953F-D36E-037E9135A1D5",
+  "rssi": -58,
+  "payload": {
+    "aux_mode": "disabled",
+    "consumed_ah": 8.0,
+    "current": -23.609,
+    "model_name": "SmartShunt 500A/50mV",
+    "remaining_mins": 183,
+    "soc": 95.0,
+    "voltage": 13.0
+  }
+}
