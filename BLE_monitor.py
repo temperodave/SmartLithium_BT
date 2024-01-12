@@ -9,7 +9,7 @@ from gi.repository import Gio, GLib, GObject
 from typing import Any, Dict, Type
 
 from decryptor import decrypt_aes_128_ctr_little_endian
-
+import Smart_Lithium
 
 # DBus Information
 bus_type = Gio.BusType.SYSTEM
@@ -161,6 +161,12 @@ def new_device_hndlr(proxy: BluezObjectManager,
         ciphertext_chunks = [encrypted]
         for plaintext in decrypt_aes_128_ctr_little_endian(akey,iv, ciphertext_chunks):
              print(f'{address},', ManufacturerData_hex,',',codecs.encode(plaintext,"hex"))
+             if (ManufacturerData_hex[2:4] =="0289"):
+                 devicer=BatteryMonitor("Dave1")
+             if (ManufacturerData_hex[2:4] =="00ee"):
+                 devicer = Smart_Lithium(address)
+             devicer.parse_hex(codecs.encode(plaintext,"hex"))
+             print(devicer)
 #            print('.     Decrypted text in hex: ', codecs.encode(plaintext,"hex"))
 #    else:
 #        print(f'Device with address {address} not in the list of known keys')
