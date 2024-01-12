@@ -44,7 +44,7 @@ class BatteryMonitor:
     self.soc = int(hex_str[28:30]+hex_str[26:28],16) & 0x3FF0
 
   def __str__(self):
-    return f"Remaining_Mins: {self.remaining_mins} Voltage: {self.voltage} alarm:{self.alarm} current: {self.current} Consumed_AH:{self.consumed_ah} SOC:{self.SOC}"
+    return f"Remaining_Mins: {self.remaining_mins} Voltage: {self.voltage} alarm:{self.alarm} current: {self.current} Consumed_AH:{self.consumed_ah} SOC:{self.soc}"
     
-
-#ffff 3e05 0000 00008f4600000080fe
+#mins volt alarm aux current ahr
+#ffff 3e05 0000 0000 8f46-00 0000 80fe

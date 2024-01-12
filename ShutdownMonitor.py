@@ -32,7 +32,7 @@ from vedbus import VeDbusService
 from settingsdevice import SettingsDevice
 
 
-ShutdownServiceName = 'com.victronenergy.shutdown'
+ServiceName = 'com.victronenergy.battery'
 
 # These methods permit creation of a separate connection for each Repeater
 # overcoming the one service per process limitation
@@ -138,7 +138,7 @@ class Monitor:
 	def _createDbusService (self):
 
 		# updated version of VeDbusService (in ext directory) -- see https://github.com/victronenergy/dbus-digitalinputs for new imports
-		self.DbusService = VeDbusService (ShutdownServiceName, bus = self.DbusBus)
+		self.DbusService = VeDbusService (ServiceName, bus = self.DbusBus)
 
 		# Create the objects
 
@@ -147,28 +147,18 @@ class Monitor:
 		self.DbusService.add_path ('/Mgmt/Connection', 'dBus')
 
 		self.DbusService.add_path ('/DeviceInstance', 0)
-		self.DbusService.add_path ('/ProductName', "ShutdownMonitor")
+		self.DbusService.add_path ('/ProductName', "SmartLithium_BT")
 		self.DbusService.add_path ('/ProductId', 0)
 		self.DbusService.add_path ('/FirmwareVersion', 0)
 		self.DbusService.add_path ('/HardwareVersion', 0)
 		self.DbusService.add_path ('/Serial', '')
 		# use numeric values (1/0) not True/False for /Connected to make GUI display correct state
 		self.DbusService.add_path ('/Connected', 1)
-		# indicates to the GUI that it can show the RPI shutdown pin control
-		self.DbusService.add_path ('/ExtShutdownPresent', 0)
-
-		# GUI sets this to initialte shutdown
-		self.DbusService.add_path ('/Shutdown', 0, writeable = True, onchangecallback = self._handlechangedvalue)
-
+		self.DbusService.add_path ('/Dc/0/Voltage', 0)
+		for x in range(1,9):
+			path='/Dc/' + x + '/Voltage'
+			self.DbusService.add_path (path, 0)
 		# create the setting that allows enabling the RPI shutdown pin
-		settingsList = {'externalSwitch': [ '/Settings/ShutdownMonitor/ExternalSwitch', 0, 0, 0 ],
-						}
-		self.DbusSettings = SettingsDevice(bus=dbus.SystemBus(), supportedSettings=settingsList,
-								timeout = 10, eventCallback=None )
-
-		# enable the shutdown pin only if on a Raspberry PI
-		if self.ShutdownPinPresent:
-			self.DbusService['/ExtShutdownPresent'] = 1
 
 		return
 
