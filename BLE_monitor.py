@@ -2,6 +2,7 @@
 # The base code is borrowed from https://ukbaz.github.io/howto/python_gio_2.html
 # 
 #
+import time
 import logging
 import codecs
 from gi.repository import Gio, GLib, GObject
@@ -9,7 +10,8 @@ from gi.repository import Gio, GLib, GObject
 from typing import Any, Dict, Type
 
 from decryptor import decrypt_aes_128_ctr_little_endian
-import Smart_Lithium
+from Smart_Lithium import *
+
 
 # DBus Information
 bus_type = Gio.BusType.SYSTEM
@@ -160,16 +162,17 @@ def new_device_hndlr(proxy: BluezObjectManager,
 #        print(f'      Encrypted Data is {encrypted.hex()} and key is {encryption_keys[address]} and iv is {iv}') 
         ciphertext_chunks = [encrypted]
         for plaintext in decrypt_aes_128_ctr_little_endian(akey,iv, ciphertext_chunks):
-             print(f'{address},', ManufacturerData_hex,',',codecs.encode(plaintext,"hex"))
+#             print(f'{address},', ManufacturerData_hex,',',codecs.encode(plaintext,"hex"))
              devicer="No matching decoder"
-             if (ManufacturerData_hex[2:4] =="0289"):
+             if (ManufacturerData_hex[2:6] =="0289"):
                  devicer=BatteryMonitor("Dave1")
                  devicer.parse_hex(codecs.encode(plaintext,"hex"))
-             if (ManufacturerData_hex[2:4] =="00ee"):
+                 print(f'{int(time.time())}, {address},{devicer}')
+             if (ManufacturerData_hex[2:6] =="00ee"):
                  devicer = Smart_Lithium(address)
                  devicer.parse_hex(codecs.encode(plaintext,"hex"))
-             print(devicer)
-#            print('.     Decrypted text in hex: ', codecs.encode(plaintext,"hex"))
+                 print(f'{int(time.time())}, {address},{devicer}')
+#             print('     Decrypted text in hex: ', codecs.encode(plaintext,"hex"))
 #    else:
 #        print(f'Device with address {address} not in the list of known keys')
     adapter.RemoveDevice('(o)', object_path)
@@ -188,7 +191,7 @@ if __name__ == '__main__':
     mngr = BluezObjectManager()
     adapter = bluez_proxy(ADAPTER_PATH, ADAPTER_IFACE)
     disco_filters = adapter.GetDiscoveryFilters()
-    print(disco_filters)
+#    print(disco_filters)
     # Link device-added event to callback function
     mngr.connect('device-added', new_device_hndlr)
     # Start discovering (scanning) for devices
