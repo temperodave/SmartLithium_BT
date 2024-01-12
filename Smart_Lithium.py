@@ -41,10 +41,10 @@ class BatteryMonitor:
     self.aux_value = int(hex_str[14:16]+hex_str[12:14],16)
     self.current = int(hex_str[20:22]+hex_str[18:20]+hex_str[16:18],16)
     self.consumed_ah = int(hex_str[24:26]+hex_str[22:24],16)
-    self.soc = int(hex_str[28:30]+hex_str[26:28],16) & 0x3FF0
+    self.soc = ((int(hex_str[28:30]+hex_str[26:28],16) & 0x3FF0) >> 4) / 10
+#    print('SOC: ',(hex_str[28:30]+hex_str[26:28]) >> 4)
 
   def __str__(self):
     return f"Remaining_Mins: {self.remaining_mins} Voltage: {self.voltage} alarm:{self.alarm} current: {self.current} Consumed_AH:{self.consumed_ah} SOC:{self.soc}"
     
 
-#ffff 3e05 0000 00008f4600000080fe
