@@ -29,6 +29,8 @@ class BatteryMonitor:
     self.voltage = 0
     self.alarm = 0
     self.current = 0
+    self.aux_value = 0
+    self.aux_mode = 0
     self.consumed_ah = 0
     self.soc = 0
 
@@ -36,10 +38,13 @@ class BatteryMonitor:
     self.remaining_mins = int(hex_str[2:4]+hex_str[0:2],16)
     self.voltage = int(hex_str[6:8]+hex_str[4:6],16)/100
     self.alarm = int(hex_str[10:12]+hex_str[8:10],16)
-    self.aux = int(hex_str[16:18]+hex_str[14:16]+hex_str[12:14],16)
-    self.consumed_ah = int(hex_str[20:22]+hex_str[18:20],16)
-    self.soc = int(hex_str[24:26]+hex_str[22:24],16) & 0x3FF0
+    self.aux_value = int(hex_str[14:16]+hex_str[12:14],16)
+    self.current = int(hex_str[20:22]+hex_str[18:20]+hex_str[16:18],16)
+    self.consumed_ah = int(hex_str[24:26]+hex_str[22:24],16)
+    self.soc = int(hex_str[28:30]+hex_str[26:28],16) & 0x3FF0
 
   def __str__(self):
     return f"Remaining_Mins: {self.remaining_mins} Voltage: {self.voltage} alarm:{self.alarm} current: {self.current} Consumed_AH:{self.consumed_ah} SOC:{self.SOC}"
     
+
+#ffff 3e05 0000 00008f4600000080fe
