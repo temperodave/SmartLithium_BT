@@ -167,11 +167,11 @@ def new_device_hndlr(proxy: BluezObjectManager,
              if (ManufacturerData_hex[2:6] =="0289"):
                  devicer=BatteryMonitor("Dave1")
                  devicer.parse_hex(codecs.encode(plaintext,"hex"))
-                 print(int(time.time()),',',devicer)
+                 print(f'{int(time.time())}, {address},{devicer}')
              if (ManufacturerData_hex[2:6] =="00ee"):
                  devicer = Smart_Lithium(address)
                  devicer.parse_hex(codecs.encode(plaintext,"hex"))
-                 print(int(time.time()),',',devicer)
+                 print(f'{int(time.time())}, {address},{devicer}')
 #             print('     Decrypted text in hex: ', codecs.encode(plaintext,"hex"))
 #    else:
 #        print(f'Device with address {address} not in the list of known keys')

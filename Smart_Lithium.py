@@ -19,7 +19,7 @@ class Smart_Lithium:
         self.Cell_V.insert(i,round((cell_voltages >>(7*i) & 0x000000000000007F) /100 + 2.6 , 2))
         
   def __str__(self):
-    return f"BMS_Flags: {self.BMS_Flags} Error_Flags: {self.Error_Flags} Temp:{self.Temp} Voltage: {self.Voltage} Balancer_Status:{self.Balancer_Status} Cell_Voltages:{self.Cell_V}"
+    return f"BMS: {self.BMS_Flags} Err: {self.Error_Flags} Tmp:{self.Temp} V: {self.Voltage} Bal_Stat:{self.Balancer_Status} Cell_V:{self.Cell_V}"
 
 
 class BatteryMonitor:
