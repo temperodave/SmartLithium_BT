@@ -13,7 +13,7 @@ class Smart_Lithium:
     self.Error_Flags = hex_str[8:12]
     self.Temp = (int(hex_str[30:32],16) & 0x7f)- 40
     self.Voltage = (int(hex_str[28:30]+hex_str[26:28],16) & 0x0FFF) / 100
-    self.Balancer_Status = hex_str[29:30]
+    self.Balancer_Status = hex_str[28:29]
     cell_voltages=int(hex_str[24:26]+hex_str[22:24]+hex_str[20:22]+hex_str[18:20]+hex_str[16:18]+hex_str[14:16]+hex_str[12:14],16)
     for i in range(8):
         self.Cell_V.insert(i,round((cell_voltages >>(7*i) & 0x000000000000007F) /100 + 2.6 , 2))
