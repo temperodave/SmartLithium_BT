@@ -1,3 +1,11 @@
+import math
+def htosi(val):
+    uintval = int(val,16)
+    bits = 4 * (len(val) - 2)
+    if uintval >= math.pow(2,bits-1):
+        uintval = int(0 - (math.pow(2,bits) - uintval))
+    return uintval
+
 class Smart_Lithium:
   def __init__(self, Mac_address):
     self.Mac_address=Mac_address
@@ -39,12 +47,10 @@ class BatteryMonitor:
     self.voltage = int(hex_str[6:8]+hex_str[4:6],16)/100
     self.alarm = int(hex_str[10:12]+hex_str[8:10],16)
     self.aux_value = int(hex_str[14:16]+hex_str[12:14],16)
-    self.current = int(hex_str[20:22]+hex_str[18:20]+hex_str[16:18],16)
+    self.current = htosi(hex_str[20:22]+hex_str[18:20]+hex_str[16:18])
     self.consumed_ah = int(hex_str[24:26]+hex_str[22:24],16)
     self.soc = int(hex_str[28:30]+hex_str[26:28],16) & 0x3FF0
 
   def __str__(self):
     return f"Remaining_Mins: {self.remaining_mins} Voltage: {self.voltage} alarm:{self.alarm} current: {self.current} Consumed_AH:{self.consumed_ah} SOC:{self.soc}"
     
-#mins volt alarm aux current ahr
-#ffff 3e05 0000 0000 8f46-00 0000 80fe

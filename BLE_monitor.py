@@ -139,7 +139,7 @@ def new_device_hndlr(proxy: BluezObjectManager,
                      device_props: GObject.TYPE_VARIANT) -> None:
     """Event handler for New device has been detected with scan"""
     encryption_keys={"F9:D3:0B:95:3A:BD":"0fc8d1b686829cbd0e0a916d625a0c20","E0:24:7D:A0:29:35":"070c3f4774ac795d8066816c8e3102f6","F6:C7:97:B6:79:D4":"e205915d6a4b001fc2cb499972364b26","E0:79:E0:0D:17:59":"14ae2969d687e51b491f36bb5c1dbee7","CB:CD:8A:DE:C5:C7":"7828e04088d3e83af339ec4fd8a0e6da","D6:47:C3:80:79:3F":"77cb663d432bd92d12294e033ae7dd5f","F7:F8:AD:C6:25:6D":"aaed0bae17f58353f179c4d775dafa35","F5:22:27:CC:1B:52":"9df4f1292d3208225a713605d2c94f91","D1:A2:51:17:6E:B9":"14182c136c8a77a241872ca9949d93c9"}
-    battery_map={"CB:CD:8A:DE:C5:C7":"HQ2217CCURN","D6:47:C3:80:79:3F":"HQ2233XHV4J","E0:24:7D:A0:29:35":"HQ2217CQG9H","E0:79:E0:0D:17:59":"HQ2217CMF9T","F6:C7:97:B6:79:D4":"HQ2217QFFTW","F7:F8:AD:C6:25:6D":"HQ2217C64JW"}
+    battery_map={"F9:D3:0B:95:3A:BD":"SmartShunt HQ2120DJDNX","CB:CD:8A:DE:C5:C7":"HQ2217CCURN","D6:47:C3:80:79:3F":"HQ2233XHV4J","E0:24:7D:A0:29:35":"HQ2217CQG9H","E0:79:E0:0D:17:59":"HQ2217CMF9T","F6:C7:97:B6:79:D4":"HQ2217QFFTW","F7:F8:AD:C6:25:6D":"HQ2217C64JW"}
     props = device_props.unpack()
     address = props.get('Address')
     ManufacturerData = props.get('ManufacturerData')
