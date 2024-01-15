@@ -45,17 +45,15 @@ linux machine; however, there were too many external dependencies to run on the 
     }
 
 The packet format is:
->Full packet hex: 100289a3027e320fd57251dc74522e1309ec634fcc9a73
->10      Manufacturer Data Type packet
->0289    Model - SmartShunt
->a3      Readout Type
->02      Record Type
->7e32    nonce for decryption (more accurately initial counter value)
->0f      First byte of the encryption key
->d57251dc74522e1309ec634fcc9a73 Encrypted payload of the BLE advertisement
+    Full packet hex: 100289a3027e320fd57251dc74522e1309ec634fcc9a73  
+    10      Manufacturer Data Type packet  
+    0289    Model - SmartShunt  
+    a3      Readout Type  
+    02      Record Type  
+    7e32    nonce for decryption (more accurately initial counter value)  
+    0f      First byte of the encryption key  
+    d57251dc74522e1309ec634fcc9a73 Encrypted payload of the BLE advertisement  
     
-    
-
 # Decryption
 The Victron BLE protocol is documented here https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html    
 I leveraged the work of keshavdv to retrieve the necessary decryption keys and the comments of Jake Baldwin to understand the decryption process.  
