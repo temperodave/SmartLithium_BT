@@ -45,14 +45,14 @@ linux machine; however, there were too many external dependencies to run on the 
     }
 
 The packet format is:
-    Full packet hex: 100289a3027e320fd57251dc74522e1309ec634fcc9a73
-    10      Manufacturer Data Type packet
-    0289    Model - SmartShunt
-    a3      Readout Type
-    02      Record Type
-    7e32    nonce for decryption (more accurately initial counter value)
-    0f      First byte of the encryption key
-    d57251dc74522e1309ec634fcc9a73 Encrypted payload of the BLE advertisement
+>Full packet hex: 100289a3027e320fd57251dc74522e1309ec634fcc9a73
+>10      Manufacturer Data Type packet
+>0289    Model - SmartShunt
+>a3      Readout Type
+>02      Record Type
+>7e32    nonce for decryption (more accurately initial counter value)
+>0f      First byte of the encryption key
+>d57251dc74522e1309ec634fcc9a73 Encrypted payload of the BLE advertisement
     
     
 
@@ -83,8 +83,8 @@ and applies any necessary math to the value.  The Victron document https://commu
 the contents of these advertisements.  Note, the document starts at bit 32, which is the first bit of the encrypted payload.  Also note that each value (for example a 
 16 bit number) is little endian encoded in the string.  In our above example the decrypted string is ffff 3f05 0000 0000 0b27 0000 0080 fe for a SmartShunt which is decoded 
 as a Battery monitor.  Signed integers are another trick.
-    ffff = TTG
-    3f05 = Battery voltage (but that is 0x053f big endian = 1343 / 100 = 13.43V)
+>ffff = TTG
+>3f05 = Battery voltage (but that is 0x053f big endian = 1343 / 100 = 13.43V)
 
 # Future
 This project eventually will be installed with PackageManager (see kwindrem SetupHelper https://github.com/kwindrem/SetupHelper ) and run as a service publishing to dbus.  
