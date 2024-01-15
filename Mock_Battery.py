@@ -156,7 +156,7 @@ class Monitor:
 		self.DbusService.add_path ('/Connected', 1)
 		self.DbusService.add_path ('/Dc/0/Voltage', 0)
 		for x in range(1,9):
-			path='/Dc/' + x + '/Voltage'
+			path='/Dc/' + str(x) + '/Voltage'
 			self.DbusService.add_path (path, 0)
 		# create the setting that allows enabling the RPI shutdown pin
 
