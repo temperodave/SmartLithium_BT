@@ -7,12 +7,12 @@ store that data locally and/or in the future via DBUS (to allow logging to the V
 capturing the data from the SmartLithium line of batteries.
 
 Acknowledgements to: 
-*kwindrem - for SetupHelper and applications that demonstrate it's use for installing apps to Victron Cerbo https://github.com/kwindrem/
-*keshavdv - for victron-ble https://github.com/keshavdv/victron-ble which provided a reference for getting keys, decryption, and decoding of BLE
+[*kwindrem](https://github.com/kwindrem/) - for SetupHelper and applications that demonstrate it's use for installing apps to Victron Cerbo 
+[*keshavdv](https://github.com/keshavdv/victron-ble) - for victron-ble which provided a reference for getting keys, decryption, and decoding of BLE
     
 
 # BLE Advertisement
-The Victron BLE protocol is documented here https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html However, several 
+The Victron BLE protocol is documented [here](https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html) However, several 
 important points are either missing or subtly mentioned.  From the cerbo command line you can use bluetoothctl to display the BLE advertisements.  
 
     bluetoothctl scan on     - this command displays the bluetooth packets including the BLE Manufacturer Data advertisements we are interested in.
@@ -23,7 +23,7 @@ important points are either missing or subtly mentioned.  From the cerbo command
   
 ## Victron-BLE
 
-The Victron-BLE project https://github.com/keshavdv/victron-ble was used as a reference through this initiative as they had a working version from a 
+The [Victron-BLE project](https://github.com/keshavdv/victron-ble) was used as a reference through this initiative as they had a working version from a 
 linux machine; however, there were too many external dependencies to run on the cerbo.
 
     victron-ble -v read "1c085f9c-cabe-953f-d36e-037e9135a1d5@0fc8d1b686829cbd0e0a916d625a0c20"
@@ -55,7 +55,7 @@ The packet format is:
     d57251dc74522e1309ec634fcc9a73 Encrypted payload of the BLE advertisement  
     
 # Decryption
-The Victron BLE protocol is documented here https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html    
+The Victron BLE protocol is documented [here](https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html)    
 I leveraged the work of keshavdv to retrieve the necessary decryption keys and the comments of Jake Baldwin to understand the decryption process.  
 The encryption/decryption keys are generated when a new pin is generated, so the above examples are useful as they provide actual values; however, my keys
 have been changed.  
@@ -85,7 +85,7 @@ as a Battery monitor.  Signed integers are another trick.
 >3f05 = Battery voltage (but that is 0x053f big endian = 1343 / 100 = 13.43V)
 
 # Future
-This project eventually will be installed with PackageManager (see kwindrem SetupHelper https://github.com/kwindrem/SetupHelper ) and run as a service publishing to dbus.  
+This project eventually will be installed with PackageManager (see kwindrem [SetupHelper](https://github.com/kwindrem/SetupHelper) ) and run as a service publishing to dbus.  
 
 # Running 
 Currently the project can simply be run from the commandline with "python3 BLE_monitor.py" output is to stdout.
