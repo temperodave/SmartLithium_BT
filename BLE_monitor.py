@@ -10,7 +10,7 @@ from gi.repository import Gio, GLib, GObject
 from typing import Any, Dict, Type
 
 from decryptor import decrypt_aes_128_ctr_little_endian
-from Smart_Lithium import *
+from Devices import *
 
 
 # DBus Information
@@ -165,16 +165,23 @@ def new_device_hndlr(proxy: BluezObjectManager,
 #             print(f'{address},', ManufacturerData_hex,',',codecs.encode(plaintext,"hex"))
              devicer="No matching decoder"
              if (ManufacturerData_hex[2:6] =="0289"):
-                 devicer=BatteryMonitor("Dave1")
+                 devicer=BatteryMonitor(battery_map[address])
                  devicer.parse_hex(codecs.encode(plaintext,"hex"))
-                 print(f'{int(time.time())}, {address},{battery_map[address]},{devicer}')
+                 BLE_data.update(address:devicer)
+#                 print(f'{int(time.time())}, {address},{battery_map[address]},{devicer}')
+                     
              if (ManufacturerData_hex[2:6] =="00ee"):
                  devicer = Smart_Lithium(address)
                  devicer.parse_hex(codecs.encode(plaintext,"hex"))
-                 print(f'{int(time.time())}, {address},{battery_map[address]},{devicer}')
+                 BLE_data.update(address:devicer)
+#                 print(f'{int(time.time())}, {address},{battery_map[address]},{devicer}')
 #             print('     Decrypted text in hex: ', codecs.encode(plaintext,"hex"))
 #    else:
 #        print(f'Device with address {address} not in the list of known keys')
+        if (int(time.time()) - lastlog > 60):
+            print(BLE_data)
+            BLE_data={}
+            lastlog = int(time.time()
     adapter.RemoveDevice('(o)', object_path)
     
 
@@ -191,6 +198,8 @@ if __name__ == '__main__':
     mngr = BluezObjectManager()
     adapter = bluez_proxy(ADAPTER_PATH, ADAPTER_IFACE)
     disco_filters = adapter.GetDiscoveryFilters()
+    lastlog=0
+    BLE_data={}
 #    print(disco_filters)
     # Link device-added event to callback function
     mngr.connect('device-added', new_device_hndlr)
