@@ -7,42 +7,42 @@ store that data locally and/or in the future via DBUS (to allow logging to the V
 capturing the data from the SmartLithium line of batteries.
 
 Acknowledgements to: 
-    kwindrem - for SetupHelper and applications that demonstrate it's use for installing apps to Victron Cerbo https://github.com/kwindrem/
-    keshavdv - for victron-ble https://github.com/keshavdv/victron-ble which provided a reference for getting keys, decryption, and decoding of BLE
+*kwindrem - for SetupHelper and applications that demonstrate it's use for installing apps to Victron Cerbo https://github.com/kwindrem/
+*keshavdv - for victron-ble https://github.com/keshavdv/victron-ble which provided a reference for getting keys, decryption, and decoding of BLE
     
 
 # BLE Advertisement
 The Victron BLE protocol is documented here https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html However, several 
 important points are either missing or subtly mentioned.  From the cerbo command line you can use bluetoothctl to display the BLE advertisements.  
 
-bluetoothctl scan on     - this command displays the bluetooth packets including the BLE Manufacturer Data advertisements we are interested in.
-Discovery started
-[CHG] Device F9:D3:0B:95:3A:BD ManufacturerData Value:
-  10 02 89 a3 02 7e 32 0f d5 72 51 dc 74 52 2e 13  .....~2..rQ.tR..
-  09 ec 63 4f cc 9a 73 
+    bluetoothctl scan on     - this command displays the bluetooth packets including the BLE Manufacturer Data advertisements we are interested in.
+    Discovery started
+    [CHG] Device F9:D3:0B:95:3A:BD ManufacturerData Value:
+      10 02 89 a3 02 7e 32 0f d5 72 51 dc 74 52 2e 13  .....~2..rQ.tR..
+      09 ec 63 4f cc 9a 73 
   
 ## Victron-BLE
 
 The Victron-BLE project https://github.com/keshavdv/victron-ble was used as a reference through this initiative as they had a working version from a 
 linux machine; however, there were too many external dependencies to run on the cerbo.
 
-victron-ble -v read "1c085f9c-cabe-953f-d36e-037e9135a1d5@0fc8d1b686829cbd0e0a916d625a0c20"
-DEBUG:victron_ble.scanner:Received data from 1c085f9c-cabe-953f-d36e-037e9135a1d5: 100289a3027e320fd57251dc74522e1309ec634fcc9a73
-Decrypted data  b'ffff3f05000000000b2700000080fed4'
-{
-  "name": "SmartShunt HQ2120DJDNX",
-  "address": "1C085F9C-CABE-953F-D36E-037E9135A1D5",
-  "rssi": -95,
-  "payload": {
-    "aux_mode": "disabled",
-    "consumed_ah": 0.0,
-    "current": 2.498,
-    "model_name": "SmartShunt 500A/50mV",
-    "remaining_mins": 65535,
-    "soc": 100.0,
-    "voltage": 13.43
-  }
-}
+    victron-ble -v read "1c085f9c-cabe-953f-d36e-037e9135a1d5@0fc8d1b686829cbd0e0a916d625a0c20"
+    DEBUG:victron_ble.scanner:Received data from 1c085f9c-cabe-953f-d36e-037e9135a1d5: 100289a3027e320fd57251dc74522e1309ec634fcc9a73
+    Decrypted data  b'ffff3f05000000000b2700000080fed4'
+    {
+      "name": "SmartShunt HQ2120DJDNX",    
+      "address": "1C085F9C-CABE-953F-D36E-037E9135A1D5",
+      "rssi": -95,
+      "payload": {
+        "aux_mode": "disabled",
+        "consumed_ah": 0.0,
+        "current": 2.498,
+        "model_name": "SmartShunt 500A/50mV",
+        "remaining_mins": 65535,
+        "soc": 100.0,
+        "voltage": 13.43
+      }
+    }
 
 The packet format is:
     Full packet hex: 100289a3027e320fd57251dc74522e1309ec634fcc9a73
