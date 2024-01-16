@@ -2,9 +2,7 @@
 # SmartLithium_BT
 
 # Overview
-The goal of this project is to retrieve the status information broadcast from Victron products via Bluetooth Low Energy (BLE) and 
-store that data locally and/or in the future via DBUS (to allow logging to the Victron VRM Portal).  Specifically the project is 
-capturing the data from the SmartLithium line of batteries.
+The goal of this project is to retrieve the status information broadcast from Victron products via Bluetooth Low Energy (BLE) and store that data locally and/or in the future via DBUS (to allow logging to the Victron VRM Portal).  Specifically the project is capturing the data from the SmartLithium line of batteries.
 
 Acknowledgements to: 
 [*kwindrem](https://github.com/kwindrem/) - for SetupHelper and applications that demonstrate it's use for installing apps to Victron Cerbo 
@@ -12,8 +10,7 @@ Acknowledgements to:
     
 
 # BLE Advertisement
-The Victron BLE protocol is documented [here](https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html) However, several 
-important points are either missing or subtly mentioned.  From the cerbo command line you can use bluetoothctl to display the BLE advertisements.  
+The Victron BLE protocol is documented [here](https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html) However, several important points are either missing or subtly mentioned.  From the cerbo command line you can use bluetoothctl to display the BLE advertisements.  
 
     bluetoothctl scan on     - this command displays the bluetooth packets including the BLE Manufacturer Data advertisements we are interested in.
     Discovery started
@@ -23,8 +20,7 @@ important points are either missing or subtly mentioned.  From the cerbo command
   
 ## Victron-BLE
 
-The [Victron-BLE project](https://github.com/keshavdv/victron-ble) was used as a reference through this initiative as they had a working version from a 
-linux machine; however, there were too many external dependencies to run on the cerbo.
+The [Victron-BLE project](https://github.com/keshavdv/victron-ble) was used as a reference through this initiative as they had a working version from a linux machine; however, there were too many external dependencies to run on the cerbo.
 
     victron-ble -v read "1c085f9c-cabe-953f-d36e-037e9135a1d5@0fc8d1b686829cbd0e0a916d625a0c20"
     DEBUG:victron_ble.scanner:Received data from 1c085f9c-cabe-953f-d36e-037e9135a1d5: 100289a3027e320fd57251dc74522e1309ec634fcc9a73
@@ -55,23 +51,16 @@ The packet format is:
 >d57251dc74522e1309ec634fcc9a73 Encrypted payload of the BLE advertisement  
     
 # Decryption
-The Victron BLE protocol is documented [here](https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html)    
-I leveraged the work of keshavdv to retrieve the necessary decryption keys and the comments of Jake Baldwin to understand the decryption process.  
-The encryption/decryption keys are generated when a new pin is generated, so the above examples are useful as they provide actual values; however, my keys
-have been changed.  
+The Victron BLE protocol is documented [here](https://community.victronenergy.com/questions/187303/victron-bluetooth-advertising-protocol.html)  I leveraged the work of keshavdv to retrieve the necessary decryption keys and the comments of Jake Baldwin to understand the decryption process.  The decryption code was mostly from [zmwangx](https://gist.github.com/zmwangx/eef99a2c6a57dbac38a6a8b8ca3a7870).  The encryption/decryption keys are generated when a new pin is generated, so the above examples are useful as they provide actual values; however, my keys have been changed.  
 
-A couple notes - the Victron process uses AES-128-CTR with a little endian counter.  Note that for the AES-CTR algorithm the counter value is 
-incremented for each 16 byte chunk to be decrypted.  This allows a single block or byte to be decrypted without having to decrypt everything before as you would have to
-do with a block cipher (AES-CTR is a stream cipher).  OpenSSL doesn't support the little endian counter by default, but since Victron currently only 
-uses a single chunk (16 bytes) it is possible to perform a decryption by passing the IV value as a little endian representation.
+A couple notes - the Victron process uses AES-128-CTR with a little endian counter.  Note that for the AES-CTR algorithm the counter value is incremented for each 16 byte chunk to be decrypted.  This allows a single block or byte to be decrypted without having to decrypt everything before as you would have todo with a block cipher (AES-CTR is a stream cipher).  OpenSSL doesn't support the little endian counter by default, but since Victron currently only uses a single chunk (16 bytes) it is possible to perform a decryption by passing the IV value as a little endian representation.
 
     echo 'd57251dc74522e1309ec634fcc9a73' | xxd -r -plain | openssl enc -aes-128-ctr -d -nopad -nosalt -K 0fc8d1b686829cbd0e0a916d625a0c20 -iv 7e32 | xxd
 
     hex string is too short, padding with zero bytes to length
     00000000: ffff 3f05 0000 0000 0b27 0000 0080 fe    ..?......'.....
 
-Note: the missing byte on the end is because I didn't pad the input string with 01 (repeating).  Since the bytes at the end are ignored and as a stream cipher it doesn't 
-change the outcome I didn't pad the input text.
+Note: the missing byte on the end is because I didn't pad the input string with 01 (repeating).  Since the bytes at the end are ignored and as a stream cipher it doesn't change the outcome I didn't pad the input text.
 
 # Decoding the Advertisement
 To pack as much data as possible Victron has efficiently used the bits in the advertisement; however, on the reading side this means some bit manipulation is required.  
